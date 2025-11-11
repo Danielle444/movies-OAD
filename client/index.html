@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Movies App</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <nav>
+    <button id="tab-wish">Wish List</button>
+    <button id="tab-filters">סינונים</button>
+    <button id="tab-cast">Cast</button>
+  </nav>
+
+  <main>
+    <section id="wish">
+      <h2>Wish List</h2>
+      <div id="movies-list"></div>
+      <div id="wish-list"></div>
+    </section>
+
+    <section id="filters" hidden>
+      <h2>סינונים</h2>
+      <div id="filter-results"></div>
+    </section>
+
+    <section id="cast" hidden>
+      <h2>Cast</h2>
+      <div id="cast-list"></div>
+    </section>
+  </main>
+
+  <script src="js/movies.js"></script>
+  <script src="js/functions.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
