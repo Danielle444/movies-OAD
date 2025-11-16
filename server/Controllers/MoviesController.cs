@@ -19,7 +19,7 @@ namespace server.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -45,7 +45,7 @@ namespace server.Controllers
         }
 
         [HttpGet("{rating}")]
-        public IActionResult GetByR(int rating)
+        public IActionResult GetByR(double rating)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace server.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -66,7 +66,7 @@ namespace server.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }

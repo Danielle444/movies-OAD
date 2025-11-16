@@ -32,7 +32,7 @@
             return MoviesList;
         }
 
-        static public List<Movie> ReadByRating(int rating)
+        static public List<Movie> ReadByRating(double rating)
         {
             List<Movie> RMoviesList = new List<Movie>();
 

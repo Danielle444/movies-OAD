@@ -1,38 +1,30 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Movies App</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-  <nav>
-    <button id="tab-wish">Wish List</button>
-    <button id="tab-filters">סינונים</button>
-    <button id="tab-cast">Cast</button>
-  </nav>
-
-  <main>
-    <section id="wish">
-      <h2>Wish List</h2>
-      <div id="movies-list"></div>
-      <div id="wish-list"></div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Movies App</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="module" src="./scripts/index.js"></script>
+  </head>
+  <body>
+    <h1 id="page-title">🎬 Movies Catalog</h1>
+    <section id="filters">
+      <div class="filter-group">
+        <label for="min-rating">Minimal rating:</label>
+        <input type="number" id="min-rating" step="0.1" min="0" max="10" />
+        <button id="btn-filter-rating">Filter by rating</button>
+      </div>
+      <div class="filter-group">
+        <label for="max-duration">Max duration (minutes):</label>
+        <input type="number" id="max-duration" min="0" />
+        <button id="btn-filter-duration">Filter by duration</button>
+      </div>
+      <button id="btn-show-all">Show all movies</button>
+      <a href="wishlist.html" target="_blank" id="btn-go-wishlist">
+        ⭐ Go to Wishlist
+      </a>
     </section>
-
-    <section id="filters" hidden>
-      <h2>סינונים</h2>
-      <div id="filter-results"></div>
-    </section>
-
-    <section id="cast" hidden>
-      <h2>Cast</h2>
-      <div id="cast-list"></div>
-    </section>
-  </main>
-
-  <script src="js/movies.js"></script>
-  <script src="js/functions.js"></script>
-  <script src="js/index.js"></script>
-</body>
+    <main></main>
+  </body>
 </html>
