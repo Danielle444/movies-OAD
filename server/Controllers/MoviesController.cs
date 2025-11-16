@@ -43,5 +43,31 @@ namespace server.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("{rating}")]
+        public IActionResult GetByR(int rating)
+        {
+            try
+            {
+                return Ok(Movie.ReadByRating(rating));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("duration")]
+        public IActionResult GetByD(int maxD)
+        {
+            try
+            {
+                return Ok(Movie.ReadByDuration(maxD));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
     }
 }

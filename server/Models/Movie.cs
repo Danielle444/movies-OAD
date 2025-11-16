@@ -32,5 +32,33 @@
             return MoviesList;
         }
 
+        static public List<Movie> ReadByRating(int rating)
+        {
+            List<Movie> RMoviesList = new List<Movie>();
+
+            for (int i = 0; i < MoviesList.Count; i++)
+            {
+                if (MoviesList[i].Rating >= rating)
+                {
+                    RMoviesList.Add(MoviesList[i]);
+                }
+            }
+            return RMoviesList;
+        }
+
+        static public List<Movie> ReadByDuration(int duration)
+        {
+            List<Movie> DMoviesList = new List<Movie>();
+
+            for (int i = 0; i < MoviesList.Count; i++)
+            {
+                if (MoviesList[i].Duration <= duration)
+                {
+                    DMoviesList.Add(MoviesList[i]);
+                }
+            }
+            return DMoviesList;
+        }
+
     }
 }
