@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cast Management</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="module" src="./scripts/cast.js"></script>
+  </head>
+  <body>
+    <h1 id="page-title">🎭 Cast Members</h1>
+
+    <section id="cast-form-section">
+      <h2>Add New Cast Member</h2>
+
+      <form id="cast-form" novalidate>
+        <div class="form-row">
+          <label for="cast-id">Id:</label>
+          <input type="number" id="cast-id" min="1" required />
+        </div>
+
+        <div class="form-row">
+          <label for="cast-name">Name:</label>
+          <input type="text" id="cast-name" required />
+        </div>
+
+        <div class="form-row">
+          <label for="cast-role">Role:</label>
+          <input type="text" id="cast-role" required />
+        </div>
+
+        <div class="form-row">
+          <label for="cast-dob">Date of Birth:</label>
+          <input type="date" id="cast-dob" required />
+        </div>
+
+        <div class="form-row">
+          <label for="cast-country">Country:</label>
+          <input type="text" id="cast-country" required />
+        </div>
+
+        <button type="submit" id="btn-add-cast">Add Cast Member</button>
+      </form>
+    </section>
+
+    <section id="cast-list-section">
+      <h2>Existing Cast Members</h2>
+      <div id="cast-list"></div>
+    </section>
+  </body>
+</html>

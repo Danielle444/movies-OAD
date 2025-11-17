@@ -58,11 +58,11 @@ namespace server.Controllers
         }
 
         [HttpGet("duration")]
-        public IActionResult GetByD(int maxD)
+        public IActionResult GetByD([FromQuery] int duration)
         {
             try
             {
-                return Ok(Movie.ReadByDuration(maxD));
+                return Ok(Movie.ReadByDuration(duration));
             }
             catch (Exception ex)
             {

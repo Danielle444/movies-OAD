@@ -9,21 +9,17 @@ import {
 console.log("index.js loaded");
 console.log("number of movies:", movies.length);
 
-window.addEventListener("DOMContentLoaded", init);
-
-function init() {
-  console.log("init running");
   renderMovies(movies, true);
   attachWishlistButtons();
   attachFilterEvents();
-}
+
 
 function attachWishlistButtons() {
   var buttons = document.querySelectorAll(".add-to-wishlist-btn");
 
   buttons.forEach(function (btn) {
     btn.addEventListener("click", function () {
-      var id = parseInt(btn.getAttribute("data-id"));
+      var id = parseInt(btn.getAttribute("data-movie_id"));
       var movie = movies.find(function (m) {
         return m.id === id;
       });
