@@ -9,10 +9,9 @@ import {
 console.log("index.js loaded");
 console.log("number of movies:", movies.length);
 
-  renderMovies(movies, true);
-  attachWishlistButtons();
-  attachFilterEvents();
-
+renderMovies(movies, true);
+attachWishlistButtons();
+attachFilterEvents();
 
 function attachWishlistButtons() {
   var buttons = document.querySelectorAll(".add-to-wishlist-btn");
@@ -61,9 +60,15 @@ function filterRatingHandler() {
   filterByRatingFromServer(value);
 }
 
-
 function filterDurationHandler() {
-  var value = parseInt(document.querySelector("#max-duration").value);
+  var value = parseInt(document.querySelector("#duration").value);
+
+  if (isNaN(value)) {
+    renderMovies(movies, true);
+    attachWishlistButtons();
+    return;
+  }
+
   filterByDurationFromServer(value);
 }
 
@@ -72,5 +77,5 @@ function showAllHandler() {
   attachWishlistButtons();
 
   document.querySelector("#min-rating").value = "";
-  document.querySelector("#max-duration").value = "";
+  document.querySelector("#duration").value = "";
 }

@@ -1,194 +1,256 @@
-/* -------- GENERAL -------- */
+* {
+  box-sizing: border-box;
+}
 
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  background: #f4f4f4;
-  color: #333;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f7f8fb;
+  color: #1e1e1e;
+}
+
+#main-nav {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #dcdff1;
+  padding: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+#main-nav a {
+  color: #2b3a67;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+#main-nav a:hover {
+  background: #e7eaff;
+  color: #1d2750;
 }
 
 h1#page-title {
   text-align: center;
-  background: #ffffff;
-  padding: 20px;
-  margin: 0;
-  border-bottom: 1px solid #ddd;
-  font-size: 2rem;
+  margin: 25px 0;
+  font-size: 2.2rem;
+  color: #2b3a67;
 }
 
-main {
-  padding: 20px;
+h2 {
+  margin-top: 0;
+  color: #2b3a67;
 }
 
-/* -------- FILTERS -------- */
+button,
+a#btn-go-wishlist {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-decoration: none;
+  background: #4b6bff;
+  color: #fff;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+button:hover,
+a#btn-go-wishlist:hover {
+  background: #3b56d4;
+  transform: translateY(-1px);
+}
+
+button:active,
+a#btn-go-wishlist:active {
+  transform: translateY(0);
+}
 
 #filters {
-  background: #fff;
-  padding: 15px 20px;
-  border-bottom: 1px solid #ddd;
+  max-width: 1100px;
+  margin: 0 auto 25px auto;
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #dcdff1;
+  border-radius: 10px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 10px;
+  align-items: flex-end;
 }
 
 .filter-group {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 4px;
 }
 
-#filters input {
-  padding: 6px;
-  border: 1px solid #bbb;
-  border-radius: 4px;
+.filter-group label {
+  font-size: 0.85rem;
+  color: #444;
 }
 
-#filters button,
-#filters a {
-  background: #4d85ff;
-  color: white;
-  padding: 8px 12px;
+.filter-group input {
+  padding: 6px 8px;
   border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
+  border: 1px solid #c6c9dd;
+  background: #ffffff;
+  color: #1e1e1e;
 }
 
-#filters button:hover,
-#filters a:hover {
-  background: #3b6fe0;
+#btn-show-all {
+  margin-left: auto;
 }
 
-/* -------- MOVIE CARDS -------- */
+#btn-go-wishlist {
+  margin-left: 10px;
+}
 
 main {
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  padding: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
 }
 
 .movie-card {
-  background: #fff;
-  padding: 14px;
+  background: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+  border: 1px solid #e0e2ef;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 6px;
 }
 
 .movie-img {
   width: 100%;
-  height: 360px;
+  height: 300px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
 }
 
 .movie-title {
-  margin: 10px 0 5px;
+  margin: 0;
+  font-size: 1.1rem;
+  color: #32406b;
 }
 
 .movie-description {
-  margin-top: 10px;
   font-size: 0.9rem;
-  color: #555;
+  line-height: 1.45;
 }
 
-.add-to-wishlist-btn {
-  margin-top: auto;
-  padding: 10px;
-  background: #4d85ff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.movie-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #444;
 }
 
-.add-to-wishlist-btn:hover {
-  background: #3b6fe0;
+.movie-card button.add-to-wishlist-btn {
+  margin-top: 8px;
+  align-self: flex-start;
 }
 
-/* -------- CAST FORM -------- */
+/* Cast sections */
 
-#cast-form-section {
+#cast-form-section,
+#cast-list-section {
+  max-width: 900px;
+  margin: 0 auto 20px auto;
+  padding: 18px;
   background: #ffffff;
-  border-bottom: 1px solid #ddd;
-  padding: 20px;
-}
-
-#cast-form-section h2 {
-  margin-top: 0;
+  border: 1px solid #dcdff1;
+  border-radius: 10px;
 }
 
 #cast-form {
-  max-width: 450px;
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .form-row {
   display: flex;
   flex-direction: column;
-  margin-bottom: 12px;
+  gap: 4px;
 }
 
 .form-row label {
-  margin-bottom: 4px;
-  font-weight: bold;
+  font-size: 0.9rem;
+  color: #444;
 }
 
 .form-row input {
-  padding: 8px;
-  border: 1px solid #bbb;
-  border-radius: 5px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #c6c9dd;
+  background: #ffffff;
+  color: #1e1e1e;
+}
+
+.input-error {
+  border-color: #e63946 !important;
+  background: #ffe8e9;
 }
 
 #btn-add-cast {
-  margin-top: 10px;
-  background: #4d85ff;
-  color: white;
-  padding: 10px 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
-
-#btn-add-cast:hover {
-  background: #3b6fe0;
-}
-
-/* Highlight invalid fields */
-.input-error {
-  border-color: #ff6666 !important;
-  background: #ffecec;
-}
-
-/* -------- CAST LIST -------- */
-
-#cast-list-section {
-  padding: 20px;
-}
-
-#cast-list-section h2 {
-  margin-bottom: 15px;
+  align-self: flex-start;
+  margin-top: 6px;
 }
 
 #cast-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
 }
 
 .cast-card {
-  background: #fff;
-  padding: 14px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #daddee;
+  padding: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
 }
 
-.cast-name {
+.cast-card h3 {
   margin-top: 0;
-  font-size: 1.3rem;
-  color: #333;
+  margin-bottom: 6px;
+  font-size: 1rem;
+  color: #32406b;
+}
+
+.cast-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+@media (max-width: 768px) {
+  #filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  #cast-form-section,
+  #cast-list-section {
+    margin: 0 10px 20px 10px;
+  }
 }

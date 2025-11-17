@@ -4,7 +4,6 @@ var BASE_URL = "https://localhost:7185/api/Movies";
 
 var CAST_URL = "https://localhost:7185/api/Casts";
 
-
 export function renderMovies(moviesArray, showButton) {
   var main = document.querySelector("main");
   var html = "";
@@ -45,8 +44,12 @@ export function addMovie(movie) {
     },
     body: JSON.stringify(movie),
   })
-    .then((res) => console.log(res))
-    .catch((err) => console.error(err));
+    .then(function (res) {
+      console.log(res);
+    })
+    .catch(function (err) {
+      console.error(err);
+    });
 }
 
 export function getWishlist() {
@@ -56,33 +59,80 @@ export function getWishlist() {
       "Content-Type": "application/json",
     },
   })
-    .then((res) => res.json())
-    .then((data) => renderMovies(data, false))
-    .catch((err) => console.error("err --> ", err));
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      renderMovies(data, false);
+    })
+    .catch(function (err) {
+      console.error("err --> ", err);
+    });
 }
 
 export function filterByRatingFromServer(minRating) {
-  fetch(`${BASE_URL}/${minRating}`, {
+  fetch(BASE_URL + "/" + minRating, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   })
-    .then((res) => res.json())
-    .then((data) => renderMovies(data, true))
-    .catch((err) => console.error("err --> ", err));
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      renderMovies(data, true);
+    })
+    .catch(function (err) {
+      console.error("err --> ", err);
+    });
 }
 
 export function filterByDurationFromServer(duration) {
-  fetch(`${BASE_URL}/duration?duration=${duration}`, {
+  fetch(BASE_URL + "/duration?duration=" + duration, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   })
-    .then((res) => res.json())
-    .then((data) => renderMovies(data, true))
-    .catch((err) => console.error("err --> ", err));
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      renderMovies(data, true);
+    })
+    .catch(function (err) {
+      console.error("err --> ", err);
+    });
+}
+
+export function getCastList() {
+  return fetch(CAST_URL, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      renderCastList(data);
+      return data;
+    })
+    .catch(function (err) {
+      console.error("err getCastList -->", err);
+    });
+}
+
+export function addCast(castMember) {
+  return fetch(CAST_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(castMember),
+  });
 }
 
 
@@ -114,34 +164,7 @@ export function renderCastList(castArray) {
   container.innerHTML = html;
 }
 
-export function getCastList() {
-  return fetch(CAST_URL, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-    .then(function (res) {
-      return res.json();
-    })
-    .then(function (data) {
-      renderCastList(data);
-      return data;
-    })
-    .catch(function (err) {
-      console.error("err getCastList -->", err);
-    });
-}
 
-export function addCast(castMember) {
-  return fetch(CAST_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(castMember)
-  });
-}
 
 function formatDate(dateValue) {
   if (!dateValue) {
