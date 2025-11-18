@@ -17,20 +17,14 @@ namespace server.DAL
             return con;
         }
 
-        protected SqlCommand CreateCommandWithStoredProcedure(string spName, SqlConnection con, Dictionary<string, object> paramDic)
+        public SqlCommand CreateCommandWithStoredProcedure(string spName, SqlConnection con, SqlParameter[] parameters)
         {
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandText = spName;
-            cmd.CommandTimeout = 10;
+            SqlCommand cmd = new SqlCommand(spName, con);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            if (paramDic != null)
+            if (parameters != null)
             {
-                foreach (KeyValuePair<string, object> param in paramDic)
-                {
-                    cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
-                }
+                cmd.Parameters.AddRange(parameters);
             }
 
             return cmd;

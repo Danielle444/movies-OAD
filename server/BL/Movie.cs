@@ -1,4 +1,6 @@
-﻿namespace server.Models
+﻿using server.DAL;
+
+namespace server.BL
 {
     public class Movie
     {
@@ -13,52 +15,56 @@
         public string Genre { get; set; }
         public string PhotoUrl { get; set; }
 
-        static public List<Movie> MoviesList = new List<Movie>();
+
+
 
         public bool Insert()
         {
-            for (int i = 0; i < MoviesList.Count; i++)
-            {
-                if (this.Id == MoviesList[i].Id)
-                {
-                    return false;
-                }
-            }
-            MoviesList.Add(this);
-            return true;
-        }
-        static public List<Movie> Read()
-        {
-            return MoviesList;
+            MoviesDAL dal = new MoviesDAL();
+            int num = dal.InsertMovie(this);
+            return num > 0;
         }
 
-        static public List<Movie> ReadByRating(double rating)
+        public static List<Movie> Read()
         {
+            MoviesDAL dal = new MoviesDAL();
+            return dal.GetAllMovies();
+        }
+
+
+        public static List<Movie> ReadByRating(double rating)
+        {
+            List<Movie> allMovies = Read();
             List<Movie> RMoviesList = new List<Movie>();
 
-            for (int i = 0; i < MoviesList.Count; i++)
+            for (int i = 0; i < allMovies.Count; i++)
             {
-                if (MoviesList[i].Rating >= rating)
+                if (allMovies[i].Rating >= rating)
                 {
-                    RMoviesList.Add(MoviesList[i]);
+                    RMoviesList.Add(allMovies[i]);
                 }
             }
+
             return RMoviesList;
         }
 
-        static public List<Movie> ReadByDuration(int duration)
+
+        public static List<Movie> ReadByDuration(int duration)
         {
+            List<Movie> allMovies = Read();
             List<Movie> DMoviesList = new List<Movie>();
 
-            for (int i = 0; i < MoviesList.Count; i++)
+            for (int i = 0; i < allMovies.Count; i++)
             {
-                if (MoviesList[i].Duration <= duration)
+                if (allMovies[i].Duration <= duration)
                 {
-                    DMoviesList.Add(MoviesList[i]);
+                    DMoviesList.Add(allMovies[i]);
                 }
             }
+
             return DMoviesList;
         }
+
 
     }
 }

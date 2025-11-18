@@ -1,4 +1,6 @@
-﻿namespace server.Models
+﻿using server.DAL;
+
+namespace server.BL
 {
     public class Cast
     {
@@ -7,25 +9,14 @@
         public string Role { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Country { get; set; }
+        public string PhotoUrl { get; set; }
 
-        public static List<Cast> CastsList = new List<Cast>();
 
-        public bool Insert()
+        public static List<Cast> Read()
         {
-            for (int i = 0; i < CastsList.Count; i++)
-            {
-                if (this.Id == CastsList[i].Id)
-                {
-                    return false;
-                }
-            }
-            CastsList.Add(this);
-            return true;
+            CastDAL dal = new CastDAL();
+            return dal.GetAllCast();
         }
 
-        static public List<Cast> Read()
-        {
-            return CastsList;
-        }
     }
 }

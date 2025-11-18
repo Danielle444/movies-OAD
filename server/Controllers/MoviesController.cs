@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using server.Models;
+using server.BL;
 
 namespace server.Controllers
 {
@@ -30,19 +30,22 @@ namespace server.Controllers
         {
             try
             {
-                if (m == null) return BadRequest("Movie is null.");
+                if (m == null)
+                    return BadRequest("Movie is null.");
+
                 bool inserted = m.Insert();
 
                 if (!inserted)
-                    return Conflict("A movie with this Id already exists");
-                return Ok();
+                    return BadRequest("Insert failed.");
 
+                return Ok(m);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
 
         [HttpGet("{rating}")]
         public IActionResult GetByR(double rating)
