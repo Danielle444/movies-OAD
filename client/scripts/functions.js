@@ -5,9 +5,10 @@ var BASE_URL = "https://localhost:7185/api/Movies";
 var CAST_URL = "https://localhost:7185/api/Casts";
 
 export function renderMovies(moviesArray, showButton) {
-  var main = document.querySelector("main");
-  var html = "";
-
+var main = document.querySelector("main");
+  var html = "";  
+  var activeUser = localStorage.getItem("activeUser");
+  var isLoggedIn = (activeUser !== null);
   moviesArray.forEach(function (movie) {
     html += `
       <div id=${movie.id} class="movie-card">
@@ -21,7 +22,7 @@ export function renderMovies(moviesArray, showButton) {
         <p><strong>Genre:</strong> ${movie.genre}</p>
         <p class="movie-description">${movie.description}</p>
         ${
-          showButton
+          (showButton && isLoggedIn)
             ? `
           <button class="add-to-wishlist-btn" data-movie_id="${movie.id}">
             Add to Wish list
@@ -181,4 +182,39 @@ function formatDate(dateValue) {
   var year = d.getFullYear();
 
   return day + "/" + month + "/" + year;
+}
+
+// 1. הגדרת כתובת ה-API החדשה
+var USERS_URL = "https://localhost:7185/api/Users"; // ודאי שהפורט תואם לשלך
+
+// 2. פונקציית הרשמה
+export function registerUser(userData) {
+  return fetch(USERS_URL + "/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+}
+
+// 3. פונקציית התחברות
+export function loginUser(loginData) {
+  return fetch(USERS_URL + "/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(loginData),
+  });
+}
+// פונקציה להוספת סרט חדש
+export function insertMovie(movieData) {
+  return fetch(BASE_URL, { // משתמש ב-BASE_URL הקיים (api/Movies)
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(movieData),
+  });
 }

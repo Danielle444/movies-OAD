@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Movie</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="module" src="./scripts/addMovie.js"></script>
+</head>
+<body>
+    <nav id="main-nav">
+        <a href="index.html">🎬 Movies</a>
+        <a href="wishlist.html">⭐ Wishlist</a>
+        <a href="cast.html">🎭 Cast</a>
+    </nav>
+
+    <div class="container">
+        <h1>➕ Add a New Movie</h1>
+        
+        <form id="add-movie-form">
+            <div class="form-group">
+                <label>Movie Title:</label>
+                <input type="text" id="m-title" required />
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Rating (0-10):</label>
+                    <input type="number" id="m-rating" step="0.1" min="0" max="10" required />
+                </div>
+                <div class="form-group">
+                    <label>Duration (mins):</label>
+                    <input type="number" id="m-duration" required />
+                </div>
+                <div class="form-group">
+                    <label>Year:</label>
+                    <input type="number" id="m-year" min="1900" max="2030" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Income ($):</label>
+                <input type="number" id="m-income" required />
+            </div>
+
+            <div class="form-group">
+                <label>Language:</label>
+                <input type="text" id="m-language" required />
+            </div>
+
+            <div class="form-group">
+                <label>Genre:</label>
+                <input type="text" id="m-genre" required />
+            </div>
+
+            <div class="form-group">
+                <label>Description:</label>
+                <textarea id="m-desc" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Photo URL:</label>
+                <input type="url" id="m-photo" placeholder="https://example.com/image.jpg" required />
+            </div>
+
+            <button type="submit" class="btn-submit">Save Movie</button>
+        </form>
+    </div>
+</body>
+</html>

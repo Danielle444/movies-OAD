@@ -8,7 +8,7 @@ import {
 
 console.log("index.js loaded");
 console.log("number of movies:", movies.length);
-
+handleUserAuth();
 renderMovies(movies, true);
 attachWishlistButtons();
 attachFilterEvents();
@@ -78,4 +78,51 @@ function showAllHandler() {
 
   document.querySelector("#min-rating").value = "";
   document.querySelector("#duration").value = "";
+}
+
+function handleUserAuth() {
+    var activeUser = localStorage.getItem("activeUser");
+    var loginLink = document.querySelector("#nav-login");
+    var logoutLink = document.querySelector("#nav-logout");
+    var addMovieLink = document.querySelector("#nav-add-movie");
+    var greeting = document.querySelector("#user-greeting");
+
+    if (activeUser) {
+        // --- מצב מחובר ---
+        var user = JSON.parse(activeUser);
+        
+        // 1. הסתרת כפתור התחברות והצגת התנתקות
+        if (loginLink) loginLink.style.display = "none";
+        if (logoutLink) logoutLink.style.display = "inline";
+        
+        // 2. הצגת כפתור הוספת סרט
+        if (addMovieLink) addMovieLink.style.display = "inline";
+
+        // 3. הצגת שם המשתמש
+        if (greeting) {
+            greeting.textContent = "Hello, " + user.userName; // ודאי שזה תואם לשדה שחוזר מהשרת (UserName/userName)
+            greeting.style.display = "inline";
+        }
+
+        // 4. הגדרת אירוע התנתקות
+        logoutLink.addEventListener("click", function(e) {
+            e.preventDefault();
+            logout();
+        });
+
+    } else {
+        // --- מצב אורח ---
+        if (loginLink) loginLink.style.display = "inline";
+        if (logoutLink) logoutLink.style.display = "none";
+        if (addMovieLink) addMovieLink.style.display = "none";
+        if (greeting) greeting.style.display = "none";
+    }
+}
+
+function logout() {
+    // מחיקת המשתמש מהזיכרון
+    localStorage.removeItem("activeUser");
+    alert("You have logged out.");
+    // רענון הדף כדי שהשינויים ייכנסו לתוקף
+    window.location.reload();
 }

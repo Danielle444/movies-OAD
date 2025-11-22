@@ -17,7 +17,7 @@ namespace server.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
 
             command = CreateCommandWithStoredProcedure("sp_GetAllMovies", connection, null);
@@ -48,7 +48,7 @@ namespace server.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -78,7 +78,7 @@ namespace server.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
 
             command = CreateCommandWithStoredProcedure("sp_InsertMovie", connection, parameters);
@@ -89,7 +89,7 @@ namespace server.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
