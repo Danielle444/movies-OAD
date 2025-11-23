@@ -5,10 +5,10 @@ var BASE_URL = "https://localhost:7185/api/Movies";
 var CAST_URL = "https://localhost:7185/api/Casts";
 
 export function renderMovies(moviesArray, showButton) {
-var main = document.querySelector("main");
-  var html = "";  
+  var main = document.querySelector("main");
+  var html = "";
   var activeUser = localStorage.getItem("activeUser");
-  var isLoggedIn = (activeUser !== null);
+  var isLoggedIn = activeUser !== null;
   moviesArray.forEach(function (movie) {
     html += `
       <div id=${movie.id} class="movie-card">
@@ -22,7 +22,7 @@ var main = document.querySelector("main");
         <p><strong>Genre:</strong> ${movie.genre}</p>
         <p class="movie-description">${movie.description}</p>
         ${
-          (showButton && isLoggedIn)
+          showButton && isLoggedIn
             ? `
           <button class="add-to-wishlist-btn" data-movie_id="${movie.id}">
             Add to Wish list
@@ -54,7 +54,17 @@ export function addMovie(movie) {
 }
 
 export function getWishlist() {
-  fetch(BASE_URL, {
+  var wishlistIds = getWishlistIds();
+
+  if (wishlistIds.length === 0) {
+    var main = document.querySelector("main");
+    if (main) {
+      main.innerHTML = "<p>Your wishlist is empty.</p>";
+    }
+    return;
+  }
+
+  return fetch(BASE_URL, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -63,12 +73,55 @@ export function getWishlist() {
     .then(function (res) {
       return res.json();
     })
-    .then(function (data) {
-      renderMovies(data, false);
+    .then(function (allMovies) {
+      var filtered = allMovies.filter(function (movie) {
+        return wishlistIds.includes(movie.id);
+      });
+
+      renderMovies(filtered, false);
+      return filtered;
     })
     .catch(function (err) {
-      console.error("err --> ", err);
+      console.error("Error in getWishlist --> ", err);
     });
+}
+
+export function getWishlistIds() {
+  var wishlistJson = localStorage.getItem("wishlist");
+  var wishlist = [];
+
+  if (wishlistJson) {
+    try {
+      wishlist = JSON.parse(wishlistJson);
+      if (!Array.isArray(wishlist)) {
+        wishlist = [];
+      }
+    } catch (e) {
+      wishlist = [];
+    }
+  }
+
+  return wishlist;
+}
+
+export function saveWishlistIds(wishlist) {
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+}
+
+export function addMovieIdToWishlist(movieId) {
+  var wishlist = getWishlistIds();
+
+  var exists = wishlist.some(function (id) {
+    return id === movieId;
+  });
+
+  if (!exists) {
+    wishlist.push(movieId);
+    saveWishlistIds(wishlist);
+    alert("Movie added to your wishlist!");
+  } else {
+    alert("This movie is already in your wishlist.");
+  }
 }
 
 export function filterByRatingFromServer(minRating) {
@@ -136,7 +189,6 @@ export function addCast(castMember) {
   });
 }
 
-
 export function renderCastList(castArray) {
   var container = document.querySelector("#cast-list");
   if (!container) {
@@ -165,8 +217,6 @@ export function renderCastList(castArray) {
   container.innerHTML = html;
 }
 
-
-
 function formatDate(dateValue) {
   if (!dateValue) {
     return "";
@@ -182,6 +232,22 @@ function formatDate(dateValue) {
   var year = d.getFullYear();
 
   return day + "/" + month + "/" + year;
+}
+
+export function getAllMovies() {
+  return fetch(BASE_URL, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (res) {
+      return res.json();
+    })
+    .catch(function (err) {
+      console.error("Error in getAllMovies --> ", err);
+      throw err;
+    });
 }
 
 // 1. הגדרת כתובת ה-API החדשה
@@ -210,7 +276,8 @@ export function loginUser(loginData) {
 }
 // פונקציה להוספת סרט חדש
 export function insertMovie(movieData) {
-  return fetch(BASE_URL, { // משתמש ב-BASE_URL הקיים (api/Movies)
+  return fetch(BASE_URL, {
+    // משתמש ב-BASE_URL הקיים (api/Movies)
     method: "POST",
     headers: {
       "Content-Type": "application/json",
