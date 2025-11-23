@@ -1,4 +1,3 @@
-import { movies } from "./movies.js";
 import {
   renderMovies,
   filterByRatingFromServer,
@@ -9,7 +8,6 @@ import {
 
 
 console.log("index.js loaded");
-console.log("number of movies:", movies.length);
 handleUserAuth();
 loadMoviesFromServer();
 attachFilterEvents();
@@ -63,8 +61,7 @@ function filterRatingHandler() {
   var value = parseFloat(document.querySelector("#min-rating").value);
 
   if (isNaN(value)) {
-    renderMovies(movies, true);
-    attachWishlistButtons();
+    loadMoviesFromServer();
     return;
   }
 
@@ -75,8 +72,7 @@ function filterDurationHandler() {
   var value = parseInt(document.querySelector("#duration").value);
 
   if (isNaN(value)) {
-    renderMovies(movies, true);
-    attachWishlistButtons();
+    loadMoviesFromServer();
     return;
   }
 
@@ -84,12 +80,12 @@ function filterDurationHandler() {
 }
 
 function showAllHandler() {
-  renderMovies(movies, true);
-  attachWishlistButtons();
+  loadMoviesFromServer();
 
   document.querySelector("#min-rating").value = "";
   document.querySelector("#duration").value = "";
 }
+
 
 function handleUserAuth() {
   var activeUser = localStorage.getItem("activeUser");
